@@ -6,7 +6,7 @@
 /*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 17:24:17 by rufranci          #+#    #+#             */
-/*   Updated: 2020/11/23 18:25:20 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/11/25 18:59:32 by rufranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,20 @@
 #include <fcntl.h>
 #include <string.h>
 
-typedef struct s_data
+typedef struct  s_data
 {
-    char    *line
-}
+    int     switchr;
+    int     switchno;
+    int     switchso;
+    int     switchwe;
+    int     switchea;
+    int     switchs;
+    int     switchf;
+    int     switchc;
+    int     x;
+    int    fd;
+    char    *line;
+}               t_data;
 
 int		get_next_line(int fd, char **line);
 int		ft_finder(char **p, char **line);
