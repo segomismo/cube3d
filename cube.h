@@ -6,7 +6,7 @@
 /*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 17:24:17 by rufranci          #+#    #+#             */
-/*   Updated: 2020/11/25 18:59:32 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/11/25 19:20:38 by rufranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 typedef struct  s_data
 {
-    int     switchr;
+    int     switchr;//en vez de hacer este switch, que compruebe si donde lo voy a guardar esté vacio
     int     switchno;
     int     switchso;
     int     switchwe;
