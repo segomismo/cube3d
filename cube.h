@@ -6,7 +6,7 @@
 /*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 17:24:17 by rufranci          #+#    #+#             */
-/*   Updated: 2020/11/25 19:20:38 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/11/25 19:29:28 by rufranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct  s_data
     int     switchs;
     int     switchf;
     int     switchc;
+    //puedo hacer un switch para que los 8 descriptores esten activados, y asi comprobar cuando sea un 1 o un 0
     int     x;
     int    fd;
     char    *line;
