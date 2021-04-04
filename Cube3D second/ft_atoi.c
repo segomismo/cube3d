@@ -6,13 +6,13 @@
 /*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 11:29:14 by mbahstou          #+#    #+#             */
-/*   Updated: 2021/03/30 00:55:23 by ruben            ###   ########.fr       */
+/*   Updated: 2021/04/01 17:43:38 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-int		ft_atoi(char *str)
+int		ft_atoi(const char *str)
 {
 	int		i;
 	int		n;

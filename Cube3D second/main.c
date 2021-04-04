@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohamed <mohamed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 18:37:13 by mbahstou          #+#    #+#             */
-/*   Updated: 2021/03/27 00:20:10 by mohamed          ###   ########.fr       */
+/*   Updated: 2021/04/01 00:44:48 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,5 @@ int		main(int argc, char *argv[])
 		return (1);
 	}
 	description_read(data);
-	while(i < data->rows)
-	{
-		while(j < data->cols)
-		{
-			printf("%c", data->copy[i][j]);
-			j++;
-		}
-		j = 0;
-		i++;
-	}
 	return (0);
 }
