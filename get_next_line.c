@@ -3,75 +3,90 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbahstou <mbahstou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mohamed <mohamed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/16 12:59:45 by mbahstou          #+#    #+#             */
-/*   Updated: 2020/01/13 19:48:26 by mbahstou         ###   ########.fr       */
+/*   Created: 2019/12/10 12:14:16 by mbahstou          #+#    #+#             */
+/*   Updated: 2021/01/05 11:38:57 by mohamed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "cube.h"
+#include <stdio.h>
 
-int			fill_line(char **s, char **line)
+char	*ft_remove(char *p, int len)
 {
-	int		i;
-	char	*aux;
+	char	*newstr;
+	int 	i;
 
 	i = 0;
-	while ((*s)[i] != '\n' && (*s)[i] != '\0')
+	if(!(newstr = malloc((ft_strlen(p) - len) * sizeof(char))))
+		return (0);
+	while (p[len]) // es igual si uso p[len++]
+		newstr[i++] = p[len++ + 1];
+	free(p);
+	return(newstr);
+}
+
+int	ft_finder(char **p, char **line)
+{
+	int i;
+
+	i = 0;
+	while ((*p)[i] && (*p)[i] != '\n')
 		i++;
-	if ((*s)[i] == '\n')
+	if ((*p)[i] == '\n')
 	{
-		*line = ft_substr(*s, 0, i);
-		aux = ft_strdup(&(*s)[i + 1]);
-		free(*s);
-		*s = aux;
+		*line = ft_substr(*p, 0, i);
+		*p = ft_remove(*p, i);
+		return (1);
 	}
-	else
-	{
-		*line = ft_substr(*s, 0, i);
-		free(*s);
-		*s = NULL;
-		return (0);
-	}
-	return (1);
+	*line = ft_substr(*p, 0, i);
+	*p = ft_remove(*p, i);
+	**p = 0;
+	return (0);
 }
 
-int			checkline(char **s, char **line, int control, int fd)
+int		get_next_line(int fd, char **line)
 {
-	if (control < 0)
-		return (-1);
-	else if ((control == 0 && s[fd] == NULL) || s[fd][0] == '\0')
-	{
-		*line = ft_strdup("");
-		return (0);
-	}
-	else
-	return (fill_line(&s[fd], line));
-}
+	int 		lectura;
+	char		buff[BUFFER_SIZE + 1];
+	static char	*p[4096];
+	int			i;
+	int			j;
 
-int			get_next_line(int fd, char **line)
-{
-	int			control;
-	static char	*s[4096];
-	char		aux[BUFFER_SIZE + 1];
-	char		*aux2;
-
+	i = 0;
+	j = 0;
 	if (fd < 0 || !line || !BUFFER_SIZE)
 		return (-1);
-	while ((control = read(fd, aux, BUFFER_SIZE)) > 0)
+	while ((lectura = read (fd, buff, BUFFER_SIZE)) > 0)
 	{
-		aux[control] = '\0';
-		if (s[fd] == NULL)
-			s[fd] = ft_strdup(aux);
+		buff[lectura] = '\0';
+		if(!p[fd])
+			p[fd] = ft_strdup(buff);
 		else
-		{
-			aux2 = ft_strjoin(s[fd], aux);
-			free(s[fd]);
-			s[fd] = aux2;
-		}
-		if (ft_strchr(s[fd], '\n'))
-			break ;
+			p[fd] = ft_strjoin(p[fd], buff);
 	}
-	return (checkline(s, line, control, fd));
+	if (lectura < 0)
+		return (-1);
+	if (ft_strchr(p[fd], '\n') != 0)
+	{
+		return (ft_finder(&p[fd], line));
+		/*while (p[fd][i] != '\n')
+			i++;
+		*line = ft_substr(p[fd], 0, i);
+		p[fd] = ft_remove(p[fd], i);
+		return (1);*/
+	}
+	else if (ft_strchr(p[fd], '\0') != 0)
+	{
+		return (ft_finder(&p[fd], line));
+		/*while (p[fd][i] != '\0')
+				i++;
+			*line = ft_substr(p[fd], 0, i);
+			p[fd] = ft_remove(p[fd], i);
+			j = ft_strlen(p[fd]);
+			p[fd][j] = 0;
+		return (0);*/
+	}
+	return(-1);
 }
