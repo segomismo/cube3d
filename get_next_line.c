@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohamed <mohamed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 12:14:16 by mbahstou          #+#    #+#             */
-/*   Updated: 2021/01/05 11:38:57 by mohamed          ###   ########.fr       */
+/*   Updated: 2021/05/12 13:30:09 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_remove(char *p, int len)
 	i = 0;
 	if(!(newstr = malloc((ft_strlen(p) - len) * sizeof(char))))
 		return (0);
-	while (p[len]) // es igual si uso p[len++]
+	while (p[len])
 		newstr[i++] = p[len++ + 1];
 	free(p);
 	return(newstr);
@@ -71,22 +71,10 @@ int		get_next_line(int fd, char **line)
 	if (ft_strchr(p[fd], '\n') != 0)
 	{
 		return (ft_finder(&p[fd], line));
-		/*while (p[fd][i] != '\n')
-			i++;
-		*line = ft_substr(p[fd], 0, i);
-		p[fd] = ft_remove(p[fd], i);
-		return (1);*/
 	}
 	else if (ft_strchr(p[fd], '\0') != 0)
 	{
 		return (ft_finder(&p[fd], line));
-		/*while (p[fd][i] != '\0')
-				i++;
-			*line = ft_substr(p[fd], 0, i);
-			p[fd] = ft_remove(p[fd], i);
-			j = ft_strlen(p[fd]);
-			p[fd][j] = 0;
-		return (0);*/
 	}
 	return(-1);
 }

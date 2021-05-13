@@ -6,7 +6,7 @@
 /*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 18:42:13 by mbahstou          #+#    #+#             */
-/*   Updated: 2021/05/10 15:53:50 by ruben            ###   ########.fr       */
+/*   Updated: 2021/05/13 13:10:14 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdio.h>
-//# include "./minilibx-linux/mlx.h"
-
-typedef	struct	s_color
-{
-	int		r;
-	int		g;
-	int		b;
-}				t_color;
-
+# include "./minilibx-Darwin/mlx.h"
 
 //poner en la estructura tres contadores para luego no tener que crearlos mas tarde
 typedef struct	s_data
@@ -53,12 +45,15 @@ typedef struct	s_data
 	int		**matrix_map;// (R) he modificado que esto sea int
 	int		**copy;
 	int		n_sprites; // (R) he creado esto para saber cual es el numero de sprites para guardar luego su posicion
+	int		*spritex;
+	int		*spritey;
 	int		ceilingr;
 	int		ceilingg;
 	int		ceilingb;
 	int		floorr;;
 	int		floorg;
 	int		floorb;
+	int		save;
 }				t_data;
 
 void	description_read(t_data *data);
@@ -66,7 +61,7 @@ void	ft_init(t_data *data);
 void	resolution(t_data *data);
 void		c_color(t_data *data);
 void		f_color(t_data *data);
-void	color_errors(int flocelr, int flocelg, int flocelb, char *line, int i);
+void	color_errors(int flocelr, int flocelg, int flocelb, int i, t_data *data);
 void		t_paths(t_data *data);
 void	map_read(t_data *data);
 void	map_to_matrix(t_data *data);
@@ -81,6 +76,8 @@ void	p_finder (t_data *data, int rows);
 void	p_position (t_data *data, int i, int j);
 int		ft_atoi(const char *str);
 void 	map_errors (t_data *data);
+void    ft_errors (int a, t_data *data);
+void	imprimir_mapa(t_data *data);
 /*
 **              				GET NEXT LINE
 */

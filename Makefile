@@ -1,30 +1,62 @@
-SOURCES =	mlx.c
-			
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ruben <ruben@student.42.fr>                +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/05/12 17:20:06 by ruben             #+#    #+#              #
+#    Updated: 2021/05/13 12:35:08 by ruben            ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-OBJECTS				=	${SOURCES:.c=.o}
 
 NAME = cub3D
 
-CC = gcc
-RM = rm -f
+SRC = check_errors.c	\
+	  description_read.c	\
+	  errors.c			\
+	  ft_atoi.c			\
+	  funciones.c		\
+	  get_next_line.c	\
+	  get_next_line_utils.c	\
+	  main.c			\
+	  map_errors.c		\
+	  map_read.c		\
 
-CC_FLAGS = -Wall -Wextra -Werror
-L_FLAGS = -lmlx -lX11 -lXext -lbsd -lm
+LIB = minilibx-$(OS)/libmlx.a
 
-.c.o:
-	${CC} ${CC_FLAGS} -c $< -o ${<:.c=.o}
+OS  = $(shell uname -s)
 
-${NAME}: ${OBJECTS}
-	${CC} -o ${NAME} ${OBJECTS} ${L_FLAGS}
+OBJ = $(SRC:.c=.o)
 
-all : ${NAME}
+ifeq ($(OS), Darwin)
+    MINILIB = -framework OpenGL -framework AppKit
+else
+    MINILIB = -lm -lz -lXext -lX11 -L ./minilibx-Linux -pthread
+endif
+
+ifeq ($(OS), Darwin)
+    SYSTEM = -D MAC_SYSTEM=1
+else
+    SYSTEM = -D LINUX_SYSTEM=1
+endif
+
+%.o: %.c
+	gcc $(SYSTEM) -Wall -Werror -Wextra -g -I /usr/local/include -c $< -o $@
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+		$(MAKE) -C minilibx-$(OS)/
+		gcc -Wall -Werror -Wextra -g $(OBJ) -I /usr/local/include $(LIB) $(MINILIB) -o $(NAME)
 
 clean:
-	${RM} ${OBJECTS}
+		make -C minilibx-$(OS) clean
+		rm -rf $(OBJ)
 
 fclean: clean
-	${RM} ${NAME}
+		make -C minilibx-$(OS) clean
+		rm -rf $(NAME)
 
-re: fclean all
-
-.PHONY: all clean fclean re
+re : fclean all

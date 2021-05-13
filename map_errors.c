@@ -69,6 +69,12 @@ void    map_erros_secondwhile(t_data *data)
 	while (data->contj < data->cols)
 	{
 		data->copy[data->conti+1][data->contj+1] = data->matrix_map[data->conti][data->contj];
+        if (data->matrix_map[data->conti][data->contj] == 2)
+        {
+            data->spritex[data->contk] = data->conti;
+            data->spritey[data->contk] = data->contj;
+            data->contk++;
+        }
 		data->contj++;
 	}
 	data->conti++;
@@ -79,6 +85,7 @@ void    map_errors (t_data *data)
 	data->cpy_rows = (data->rows + 2);
 	data->cpy_cols = (data->cols + 2);
     data->conti = 0;
+    data->contk = 0;
     if (!(data->copy = (int**)malloc( data->cpy_rows * sizeof(int*))))
 		printf("fail allocating memory");
 	while (data->conti < data->cpy_rows)
@@ -90,7 +97,6 @@ void    map_errors (t_data *data)
     data->conti = 0;
     while (data->conti < data->rows)
         map_erros_secondwhile(data);
-    imprimir_mapa2(data);
-    printf("esto vale el x0y0->%d\n", data->copy[0][0]);
+    imprimir_mapa2(data);//esto para eliminar
     check_map(data);
 }

@@ -6,7 +6,7 @@
 /*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 18:32:57 by mbahstou          #+#    #+#             */
-/*   Updated: 2021/05/10 15:11:44 by ruben            ###   ########.fr       */
+/*   Updated: 2021/05/13 13:14:00 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	playerlocalization(t_data *data)
 		if(data->dir != 'N' && data->dir != 'S' && data->dir != 'E' && data->dir != 'W')
 		{
 			data->dir = data->map[data->contk];
-			data->map[data->contk] = '0';
+			data->matrix_map[data->conti][data->contj] = 0;
 		}
 		else
 		{
@@ -78,7 +78,7 @@ void	map_to_matrix(t_data *data)
 	}
 }
 
-/*
+
 void	imprimir_mapa(t_data *data) // esto para eliminar
 {
 	data->conti = 0;
@@ -95,7 +95,6 @@ void	imprimir_mapa(t_data *data) // esto para eliminar
 		data->conti++;
 	}
 }
-*/
 void	mem_map_while(t_data *data)
 {
 	data->contj = 0;
@@ -120,16 +119,16 @@ void	mem_map (t_data *data)
 	while (data->map[data->conti] != '\0')
 		mem_map_while(data);
 	data->conti = 0;
-	if (!(data->matrix_map = (int**)malloc((data->rows) * sizeof(int*))))
-		printf("fail allocating memory");
+	data->matrix_map = (int**)malloc((data->rows) * sizeof(int*));
 	while (data->conti < (data->rows))
 	{
-		if (!(data->matrix_map[data->conti] = (int*)malloc((data->cols) * sizeof(int))))
-			printf("fail allocating memory");
+		data->matrix_map[data->conti] = (int*)malloc((data->cols) * sizeof(int));
 		data->conti++;
 	}
 	map_to_matrix(data);
 	//imprimir_mapa(data); //esto para eliminar
+	data->spritex = (int*)malloc(data->n_sprites * sizeof(int));
+	data->spritey = (int*)malloc(data->n_sprites * sizeof(int));
 	map_errors(data);
 }
 
